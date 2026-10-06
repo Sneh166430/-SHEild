@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHEild | Women Safety App</title>
+  <meta name="description" content="SHEild is a women safety and emergency assistance app prototype.">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff5f8;
+      color: #333;
+    }
+    .app {
+      max-width: 480px;
+      min-height: 100vh;
+      margin: auto;
+      background: white;
+    }
+    header {
+      background: linear-gradient(135deg, #ff8fab, #ff5c8a);
+      color: white;
+      padding: 28px 22px;
+      border-radius: 0 0 28px 28px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .shield {
+      font-size: 34px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    header p {
+      margin: 6px 0 0;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+    .content {
+      padding: 22px;
+    }
+    .welcome {
+      margin-bottom: 22px;
+    }
+    .welcome h2 {
+      margin: 0 0 7px;
+      font-size: 22px;
+    }
+    .welcome p {
+      margin: 0;
+      color: #777;
+      line-height: 1.5;
+    }
+    .sos-section {
+      text-align: center;
+      padding: 18px 0 25px;
+    }
+    .sos-button {
+      width: 155px;
+      height: 155px;
+      border-radius: 50%;
+      border: 8px solid #ffd1df;
+      background: #ff4f81;
+      color: white;
+      font-size: 27px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 79, 129, 0.3);
+    }
+    .sos-button:active {
+      transform: scale(0.96);
+    }
+    .sos-note {
+      margin-top: 14px;
+      color: #777;
+      font-size: 13px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .card {
+      background: #fff7fa;
+      border: 1px solid #ffdce7;
+      border-radius: 16px;
+      padding: 18px 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      background: #fff0f5;
+    }
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+    .card p {
+      margin: 7px 0 0;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.4;
+    }
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff7fa;
+      border: 1px solid #ffdce7;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 14px;
+    }
+    footer {
+      text-align: center;
+      padding: 25px 20px;
+      color: #999;
+      font-size: 12px;
+    }
+    @media (max-width: 360px) {
+      .sos-button {
+        width: 135px;
+        height: 135px;
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="shield">🛡️</div>
+        <div>
+          <h1>SHEild</h1>
+          <p>Your safety. Your people. Your shield.</p>
+        </div>
+      </div>
+    </header>
+    <main class="content">
+      <section class="welcome">
+        <h2>Stay Safe 💗</h2>
+        <p>
+          Quick access to emergency support and trusted contacts.
+        </p>
+      </section>
+      <section class="sos-section">
+        <button class="sos-button" onclick="sendSOS()">
+          SOS
+        </button>
+        <div class="sos-note">
+          Tap SOS when you need emergency assistance
+        </div>
+      </section>
+      <section class="card-grid">
+        <div class="card" onclick="showMessage('Trusted Contacts')">
+          <div class="card-icon">👥</div>
+          <h3>Trusted Contacts</h3>
+          <p>Add people you can contact quickly.</p>
+        </div>
+        <div class="card" onclick="shareLocation()">
+          <div class="card-icon">📍</div>
+          <h3>Share Location</h3>
+          <p>Share your current location with someone you trust.</p>
+        </div>
+        <div class="card" onclick="showMessage('Nearby SHEild Users')">
+          <div class="card-icon">🔔</div>
+          <h3>Nearby Alert</h3>
+          <p>Future feature for nearby SHEild users.</p>
+        </div>
+        <div class="card" onclick="showMessage('Voice Trigger')">
+          <div class="card-icon">🎙️</div>
+          <h3>Voice Trigger</h3>
+          <p>Future hands-free emergency activation.</p>
+        </div>
+      </section>
+      <div class="status" id="status">
+        🟢 SHEild is ready
+      </div>
+    </main>
+    <footer>
+      SHEild — Women Safety App Prototype
+    </footer>
+  </div>
+  <script>
+    function sendSOS() {
+      const confirmed = confirm(
+        "Are you sure you want to activate the SHEild SOS?"
+      );
+      if (confirmed) {
+        document.getElementById("status").textContent =
+          "🚨 SOS activated — emergency features will be connected in the next version.";
+      }
+    }
+    function shareLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const locationLink =
+              "https://www.google.com/maps?q=" +
+              latitude + "," + longitude;
+            document.getElementById("status").innerHTML =
+              '📍 Location ready: <a href="' +
+              locationLink +
+              '" target="_blank">Open Map</a>';
+          },
+          function() {
+            document.getElementById("status").textContent =
+              "📍 Location permission was not granted.";
+          }
+        );
+      } else {
+        document.getElementById("status").textContent =
+          "📍 Location is not supported by this browser.";
+      }
+    }
+    function showMessage(feature) {
+      document.getElementById("status").textContent =
+        "✨ " + feature + " will be developed in the next version.";
+    }
+  </script>
+</body>
+</html>
